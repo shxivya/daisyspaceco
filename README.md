@@ -97,7 +97,7 @@ Please check the [issues page](https://github.com/shxivya/daisyspaceco/issues) f
 
 ## 📝 License
 
-This project is publicly visible for portfolio purposes. All rights reserved © Shaivya 2025.
+This project is publicly visible for portfolio purposes. All rights reserved © Shaivya 2026.
 
 You may view and reference this code, but you may not copy, modify, distribute, or use it (in whole or in part) for your own projects without explicit written permission from the author.
 
