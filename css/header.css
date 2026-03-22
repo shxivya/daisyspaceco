@@ -364,3 +364,32 @@
     align-items: baseline;
     gap: 0;
 }
+
+/* ========================= */
+/* MOBILE HEADER FIX */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .nav,
+  .nav-bar,
+  .header-nav {
+    display: flex;
+    overflow-x: auto; /* allow horizontal scroll */
+    gap: 0.8rem;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide ugly scrollbar */
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Prevent shrinking */
+  .nav a,
+  .nav-item {
+    flex-shrink: 0;
+  }
+
+}
