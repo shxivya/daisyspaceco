@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>daisyspaceco</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="description"
+    content="One small act of kindness a day. Track your streak, log your mood, and spread a little gentleness.">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Caveat:wght@400;500;600&family=Homemade+Apple&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cedarville+Cursive&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS — loaded in dependency order -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/generator.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/moodboard.css">
+  <link rel="stylesheet" href="css/journal.css">
+  <link rel="stylesheet" href="css/affirmations.css?v=2">
+  <link rel="stylesheet" href="css/wall.css?v=2">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/release.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/sound.css">
+  <link rel="stylesheet" href="css/theme-picker.css">
+  <link rel="stylesheet" href="css/zen.css?v=2">
+  <link rel="stylesheet" href="css/ambient.css">
+</head>
+
+<body>
+  <div class="ambient-container" aria-hidden="true">
+    <div class="ambient-blob ambient-blob-1"></div>
+    <div class="ambient-blob ambient-blob-2"></div>
+    <div class="ambient-blob ambient-blob-3"></div>
+  </div>
+  <div class="page-wrapper">
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar" aria-label="Quick navigation sidebar">
+      <div class="sidebar-inner">
+        <div class="sidebar-section">
+          <p class="sidebar-label">✦ Today's affirmation</p>
+          <p class="sidebar-affirmation" id="sidebarAffirmation">Open the Affirmations page to set one.</p>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section">
+          <p class="sidebar-label">✦ Your streak</p>
+          <div class="sidebar-streak">
+            <span class="sidebar-streak-num" id="sidebarStreak">0</span>
+            <span class="sidebar-streak-unit">days</span>
+          </div>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section">
+          <p class="sidebar-label">✦ A gentle thought</p>
+          <p class="sidebar-quote" id="sidebarQuote"></p>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section sidebar-nav-shortcuts">
+          <p class="sidebar-label">✦ Quick navigate</p>
+          <button class="sidebar-nav-link" onclick="showPage('generator'); closeSidebar()">✦ Gentle Acts</button>
+          <button class="sidebar-nav-link" onclick="showPage('moodboard'); closeSidebar()">☽ Mood Board</button>
+          <button class="sidebar-nav-link" onclick="showPage('journal'); closeSidebar()">✎ Journal</button>
+          <button class="sidebar-nav-link" onclick="showPage('affirmations'); closeSidebar()">✿ Affirmations</button>
+          <button class="sidebar-nav-link" onclick="showPage('wall'); closeSidebar()">❋ Kind Wall</button>
+          <button class="sidebar-nav-link" onclick="showPage('zen'); closeSidebar()">◌ Zen Hub</button>
+          <button class="sidebar-nav-link release-link" onclick="showPage('release'); closeSidebar()">◌ The
+            Release</button>
+        </div>
+      </div>
+    </aside>
+    <button class="sidebar-tab" id="sidebarTab" onclick="toggleSidebar()" aria-label="Open sidebar"
+      aria-expanded="false" aria-controls="sidebar">
+      <span class="sidebar-tab-icon" aria-hidden="true">❧</span>
+    </button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
+
+
+    <div class="blob1" aria-hidden="true"></div>
+    <div class="blob2" aria-hidden="true"></div>
+    <div class="blob3" aria-hidden="true"></div>
+
+    <header class="top-bar" role="banner">
+      <div class="header-side">
+        <a class="daisy-logo" href="index.html">
+          <svg class="daisy-svg" width="44" height="44" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="daisy-spin">
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82" transform="rotate(45 50 50)" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82" transform="rotate(90 50 50)" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82"
+                transform="rotate(135 50 50)" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82"
+                transform="rotate(180 50 50)" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82"
+                transform="rotate(225 50 50)" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82"
+                transform="rotate(270 50 50)" />
+              <ellipse class="daisy-petal" cx="50" cy="18" rx="9" ry="20" opacity="0.82"
+                transform="rotate(315 50 50)" />
+              <!-- center stays inside spin group so it moves with petals -->
+              <circle class="daisy-center" cx="50" cy="50" r="16" />
+              <circle cx="50" cy="50" r="7" fill="white" opacity="0.28" />
+            </g>
+          </svg>
+          <span class="daisy-name">
+            <span class="daisy-title">
+              daisy<em>space</em><small>co</small>
+            </span>
+            <span class="daisy-tagline">kindness lives here</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-btn active" onclick="showPage('generator')" aria-current="page">✦ Gentle Acts</button>
+        <button class="nav-btn" onclick="showPage('moodboard')" aria-current="false">☽ Mood Board</button>
+        <button class="nav-btn" onclick="showPage('journal')" aria-current="false">✎ Journal</button>
+        <button class="nav-btn" onclick="showPage('affirmations')" aria-current="false">✿ Affirmations</button>
+        <button class="nav-btn" onclick="showPage('wall')" aria-current="false">❋ Kind Wall</button>
+        <button class="nav-btn" onclick="showPage('zen')" aria-current="false">◌ Zen Hub</button>
+        <button class="nav-btn" onclick="showPage('release')" aria-current="false">◌ The Release</button>
+      </nav>
+
+      <div class="header-side">
+        <div class="auth-section">
+          <button id="themeToggle" class="icon-pill" aria-label="Switch to dark mode">
+            <span class="icon-pill-icon" aria-hidden="true">☾</span>
+            <span class="icon-pill-label" aria-hidden="true">Dark</span>
+          </button>
+          <button id="paletteToggle" class="icon-pill" onclick="toggleThemePicker()" aria-label="Choose colour theme"
+            aria-expanded="false" aria-controls="themePickerPanel">
+            <span class="icon-pill-icon" aria-hidden="true">◑</span>
+            <span class="icon-pill-label" aria-hidden="true">Vibe</span>
+          </button>
+          <button id="soundToggleBtn" class="icon-pill" onclick="toggleSoundPanel()" aria-label="Ambient sounds"
+            aria-expanded="false" aria-controls="soundPanel">
+            <span class="icon-pill-icon" aria-hidden="true" id="soundBtnIcon">♪</span>
+            <span class="icon-pill-label" aria-hidden="true">Sound</span>
+          </button>
+        </div>
+
+      </div>
+  </div>
+  </header>
+
+  <main>
+    <!-- ── HOME / LANDING PAGE ── -->
+    <div id="page-home" class="page page-home active" role="region" aria-label="Home">
+      <!-- Floating particles -->
+      <div class="home-particles" id="homeParticles"></div>
+      <div class="home-hero">
+        <p class="home-eyebrow">✦ A SPACE JUST FOR YOU✦</p>
+        <h1 class="home-title">This is your <em>gentle</em><br>corner of the internet</h1>
+        <div class="home-deco-line"></div>
+        <div class="rotating-lines">
+          <div class="line-track">
+            <span>wherever you are, you are welcome here</span>
+            <span>softness is not weakness — it is your strength</span>
+            <span>you don't have to earn rest or kindness</span>
+            <span>wherever you are, you are welcome here</span>
+          </div>
+        </div>
+        <div class="home-cta">
+          <button class="home-btn-primary" onclick="enterApp()">✦ Come on in</button>
+          <button class="home-btn-secondary" onclick="enterApp('zen')">↗ Wander Around</button>
+        </div>
+        <div class="home-tagline-row">
+          <span class="home-tagline-item">Always anonymous</span>
+          <span class="home-tagline-dot"></span>
+          <span class="home-tagline-item">No pressure</span>
+          <span class="home-tagline-dot"></span>
+          <span class="home-tagline-item">Just kindness</span>
+        </div>
+      </div>
+      <!-- Corner stats -->
+      <div class="home-stat home-stat-left" id="homeStatStreak">
+        <strong id="homeStreakNum">–</strong>
+        Day streak
+      </div>
+      <div class="home-stat home-stat-right" id="homeStatTotal">
+        <strong id="homeTotalNum">–</strong>
+        Acts done
+      </div>
+      <!-- Enter hint -->
+      <div class="home-enter" onclick="enterApp()">
+        <div class="home-enter-line"></div>
+        <span class="home-enter-text">Enter</span>
+      </div>
+      <!-- Nav pill (mirrors existing pages, styled differently) -->
+      <nav class="home-nav" aria-label="Quick navigate">
+        <div class="home-nav-inner">
+          <button class="home-nav-item" onclick="enterApp('generator')">✦ Gentle Acts</button>
+          <button class="home-nav-item" onclick="enterApp('moodboard')">☽ Mood Board</button>
+          <button class="home-nav-item" onclick="enterApp('journal')">✎ Journal</button>
+          <button class="home-nav-item" onclick="enterApp('affirmations')">✿ Affirmations</button>
+          <button class="home-nav-item" onclick="enterApp('wall')">❋ Kind Wall</button>
+          <button class="home-nav-item" onclick="enterApp('zen')">◌ Zen Hub</button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- ── GENERATOR PAGE ── -->
+    <div id="page-generator" class="page" role="region" aria-label="Gentle Acts">
+      <div class="container">
+        <p class="eyebrow">✦ Make a difference today ✦</p>
+        <h1>A little <em>kindness</em><br>goes a long way</h1>
+        <p class="subtitle">One small act. One better day.</p>
+
+        <div class="category-filter-bar" id="filterWrap" role="group" aria-label="Filter by category"></div>
+
+        <div class="card-wrap">
+          <div class="card" id="card" aria-live="polite" aria-atomic="true">
+            <span class="card-icon" id="cardIcon" style="display:none" aria-hidden="true"></span>
+            <div class="card-tag" id="cardTag" style="display:none"></div>
+            <p class="card-text visible" id="cardText">
+              <span class="placeholder-text">
+                Press the button to receive<br>today's act of kindness…
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" onclick="generate()" id="btnGenerate">
+            ✦ Inspire Me
+          </button>
+          <button class="btn-done" id="btnDone" onclick="markDone()" aria-label="Mark this act as done">✓ I Did
+            This</button>
+          <button class="btn-ghost" id="btnShare" onclick="openShare()" aria-label="Share this act">↗ Share</button>
+        </div>
+
+        <div class="streak-wrap" aria-label="Your kindness stats">
+          <div class="streak-box">
+            <div class="streak-item">
+              <div class="streak-num" id="streakCount">0</div>
+              <div class="streak-label">Day Streak</div>
+            </div>
+
+            <div class="streak-divider" aria-hidden="true"></div>
+
+            <div class="streak-item">
+              <div class="streak-num" id="totalDone">0</div>
+              <div class="streak-label">Acts Done</div>
+            </div>
+
+            <div class="streak-divider" aria-hidden="true"></div>
+
+            <div class="streak-item">
+              <div class="streak-dots" id="weekDots" aria-label="This week's activity"></div>
+              <div class="streak-label" style="margin-top:0.5rem">This Week</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kindness Chain -->
+        <div class="kindness-chain-wrap" aria-label="Your kindness chain">
+          <p class="kindness-chain-title">✦ Your Kindness Chain ✦</p>
+          <div class="kindness-chain" id="kindnessChain"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MOOD BOARD PAGE ── -->
+    <div id="page-moodboard" class="page" role="region" aria-label="Mood Board">
+      <div class="container mood-container">
+        <h2>Today's <em>mood</em></h2>
+        <p class="mood-date" id="moodDate"></p>
+
+        <p class="eyebrow" style="margin-bottom: 1rem;">✦ Select your color</p>
+        <div class="mood-color-bar" id="moodColorBar" role="group" aria-label="Log today's mood"></div>
+        <div class="selected-mood-label" id="activeMoodLabel" aria-live="polite">How are you feeling?</div>
+
+        <div class="mood-quote-card">
+          <div class="mood-big-quote" aria-hidden="true">"</div>
+          <p class="mood-quote-text" id="moodQuote">Select a color to see your reflection.</p>
+          <p class="mood-quote-author" id="moodAuthor"></p>
+        </div>
+
+        <!-- Mood Heatmap Calendar -->
+        <div class="mood-heatmap-section">
+          <div class="heatmap-header">
+            <p class="eyebrow">✦ Your Month in Color ✦</p>
+            <div class="heatmap-nav">
+              <button class="nav-arrow" onclick="changeHeatmapMonth(-1)" aria-label="Previous month">❮</button>
+              <span class="date-label" id="heatmapMonthLabel"></span>
+              <button class="nav-arrow" onclick="changeHeatmapMonth(1)" aria-label="Next month">❯</button>
+            </div>
+          </div>
+          <div class="heatmap-day-labels" id="heatmapDayLabels"></div>
+          <div class="heatmap-grid" id="heatmapGrid"></div>
+          <div class="heatmap-legend" id="heatmapLegend"></div>
+        </div>
+
+        <!-- Mood Sparkline -->
+        <div class="mood-sparkline-section">
+          <p class="eyebrow">✦ Last 14 Days ✦</p>
+          <div class="sparkline-container" id="sparklineContainer">
+            <svg id="moodSparkline" viewBox="0 0 420 100" preserveAspectRatio="none"></svg>
+          </div>
+        </div>
+
+        <div class="tracking-section">
+          <div class="tracking-header">
+            <p class="eyebrow">✦ Mood History</p>
+
+            <div class="controls-group">
+              <div id="dateNavigation" class="date-nav" style="display: none;" role="group"
+                aria-label="Navigate mood history">
+                <button class="nav-arrow" onclick="changeDate(-1)" aria-label="Previous period">❮</button>
+                <span id="currentDateLabel" class="date-label" aria-live="polite"></span>
+                <button class="nav-arrow" onclick="changeDate(1)" aria-label="Next period">❯</button>
+              </div>
+
+              <label for="gridTypeSelector" class="sr-only">View mood history by</label>
+              <select id="gridTypeSelector" class="grid-dropdown" onchange="updateGridView()">
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly" selected>Yearly</option>
+              </select>
+            </div>
+          </div><!-- end .tracking-header -->
+
+          <div id="dayLabels" class="day-labels" aria-hidden="true"></div>
+          <div id="moodGridContainer" aria-label="Mood history grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── JOURNAL ── -->
+    <div id="page-journal" class="page" role="region" aria-label="Kindness Journal">
+      <div class="container">
+        <p class="eyebrow">✦ Your reflections ✦</p>
+        <h2>Kindness <em>Journal</em></h2>
+
+        <div class="journal-toolbar">
+          <div class="journal-search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input type="search" id="journalSearch" class="journal-search" placeholder="Search entries…"
+              oninput="renderJournal()" aria-label="Search journal entries" />
+            <button class="journal-new-btn" onclick="openJournalModal()" aria-label="Create new journal entry">
+              <span class="journal-new-icon" aria-hidden="true">+</span>
+              <span class="journal-new-label" aria-hidden="true">New Entry</span>
+            </button>
+          </div>
+          <div class="journal-toolbar-right">
+            <label for="journalFilter" class="sr-only">Filter entries</label>
+            <select id="journalFilter" class="journal-filter-select" onchange="renderJournal()">
+              <option value="all">All entries</option>
+              <option value="pinned">Pinned only</option>
+              <option value="Calm">🌿 Calm</option>
+              <option value="Happy">🌤️ Happy</option>
+              <option value="Neutral">😌 Neutral</option>
+              <option value="Loved">💗 Loved</option>
+              <option value="Relaxed">🧘 Relaxed</option>
+              <option value="Hopeful">🌱 Hopeful</option>
+              <option value="Grateful">🫶 Grateful</option>
+              <option value="Tired">😩 Tired</option>
+              <option value="Anxious">😟 Anxious</option>
+              <option value="Frustrated">😤 Frustrated</option>
+              <option value="Sad">😔 Sad</option>
+              <option value="Lonely">🤍 Lonely</option>
+            </select>
+            <button class="journal-export-btn" onclick="exportJournalPDF()" aria-label="Export journal as PDF">↓
+              PDF</button>
+          </div>
+        </div>
+
+        <div id="journalStats" class="journal-stats" aria-live="polite"></div>
+
+        <!-- On This Day Memories -->
+        <div id="onThisDaySection" class="on-this-day-section" style="display:none"></div>
+
+        <div id="journalList" class="journal-list" aria-label="Journal entries" aria-live="polite">
+          <p class="placeholder-text">
+            Your reflections will appear here 🌿
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── AFFIRMATIONS PAGE ── -->
+    <div id="page-affirmations" class="page" role="region" aria-label="Affirmations">
+      <div class="container affirmations-container">
+        <p class="eyebrow">✦ Daily Affirmation ✦</p>
+        <h2>You are <em>enough</em></h2>
+        <p class="affirm-time-greeting" id="affirmTimeGreeting"></p>
+
+        <!-- Main affirmation card -->
+        <div class="affirm-card" id="affirmCard">
+          <div class="affirm-card-ornament" aria-hidden="true">✦</div>
+          <p class="affirm-quote" id="affirmQuote" aria-live="polite">Press the button to receive your affirmation…
+          </p>
+          <p class="affirm-source" id="affirmSource"></p>
+        </div>
+
+        <div class="affirm-btn-row">
+          <button class="btn-primary" onclick="newAffirmation()">♻ New Affirmation</button>
+          <button class="btn-ghost" id="btnSaveAffirm" onclick="saveAffirmation()" aria-label="Save this affirmation">♡
+            Save</button>
+        </div>
+
+        <!-- Daily intention -->
+        <div class="intention-section">
+          <p class="eyebrow" style="margin-top:2.5rem; margin-bottom:0.8rem;">✦ Today's Intention</p>
+          <p class="intention-hint">Set a gentle intention for the day <span class="optional-tag">optional</span></p>
+          <label for="intentionInput" class="sr-only">Write today's intention</label>
+          <textarea id="intentionInput" class="intention-textarea" placeholder="I intend to…" rows="2"></textarea>
+          <button class="btn-primary intention-save-btn" onclick="saveIntention()">Save Intention</button>
+          <p class="intention-saved-text" id="intentionDisplay" aria-live="polite"></p>
+        </div>
+
+        <!-- Intention history -->
+        <div class="intention-history-section" id="intentionHistory"></div>
+
+        <!-- Saved affirmations -->
+        <div class="saved-affirmations-section">
+          <div class="saved-affirmations-header">
+            <p class="eyebrow" style="margin:0;">✦ Saved Affirmations ✦</p>
+            <div class="saved-affirm-controls">
+              <div class="time-filter-group" id="timeFilterGroup">
+                <button class="time-filter-btn active" data-filter="all"
+                  onclick="filterAffirmsByTime('all')">All</button>
+                <button class="time-filter-btn" data-filter="morning"
+                  onclick="filterAffirmsByTime('morning')">☀️</button>
+                <button class="time-filter-btn" data-filter="night" onclick="filterAffirmsByTime('night')">🌙</button>
+              </div>
+              <button class="view-all-btn" id="viewAllBtn" onclick="toggleViewAll()" style="display:none;">View
+                All</button>
+            </div>
+          </div>
+          <div id="savedAffirmList" class="saved-affirm-list" aria-label="Saved affirmations">
+            <p class="placeholder-text" style="text-align:left; padding: 1rem 0;">Your saved affirmations will appear
+              here…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── KINDNESS WALL ── -->
+    <div id="page-wall" class="page" role="region" aria-label="Kindness Wall">
+      <div class="container wall-container">
+
+        <p class="eyebrow">✦ The Kindness Wall ✦</p>
+        <h2>You never know who <em>needs</em> this</h2>
+        <p class="wall-intro">Something you leave here might be exactly what a stranger needs today. No names. No
+          profiles. No pressure — just us, being kind.</p>
+
+        <!-- Today's stat -->
+        <div class="wall-stat-bar">
+          <div class="wall-stat-dot" aria-hidden="true"></div>
+          <span id="wallTodayCount" aria-live="polite">Be the first to share something kind today</span>
+        </div>
+
+        <!-- Composer -->
+        <div class="wall-composer">
+          <div class="wall-prompt-row">
+            <span class="wall-prompt-label" id="wallPromptLabel">"Something kind I did today…"</span>
+            <button class="wall-prompt-shuffle" onclick="shufflePrompt()" aria-label="Get a new writing prompt"
+              title="New prompt">↻</button>
+          </div>
+          <label for="wallInput" class="sr-only">Write your kind thought (max 280 characters)</label>
+          <textarea id="wallInput" class="wall-textarea" placeholder="Write something gentle here…" rows="3"
+            maxlength="280" oninput="updateWallCharCount()" aria-describedby="wallCharCount"></textarea>
+          <div class="wall-composer-footer">
+            <span class="wall-anon-note" aria-hidden="true">✦ always anonymous</span>
+            <span class="wall-char-count" id="wallCharCount" aria-live="polite"
+              aria-label="Characters remaining">280</span>
+            <button class="btn-primary wall-post-btn" onclick="postToWall()">✦ Share anonymously</button>
+          </div>
+        </div>
+
+        <!-- Featured Thought -->
+        <div id="wallFeaturedWrap" class="wall-featured-wrap" style="display:none;">
+          <p class="wall-featured-label">✦ A thought for you</p>
+          <div class="wall-featured-card">
+            <div class="wall-featured-ornament" aria-hidden="true">"</div>
+            <p class="wall-featured-text" id="wallFeaturedText"></p>
+            <div class="wall-featured-footer">
+              <span class="wall-featured-time" id="wallFeaturedTime"></span>
+              <div class="wall-reactions" id="wallFeaturedReactions" role="group" aria-label="React to this thought">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="wall-filter-tabs" role="tablist" aria-label="Filter wall posts">
+          <button class="wall-tab active" role="tab" aria-selected="true" data-filter="recent"
+            onclick="setWallFilter('recent', this)">Recent</button>
+          <button class="wall-tab" role="tab" aria-selected="false" data-filter="resonating"
+            onclick="setWallFilter('resonating', this)">Most resonating</button>
+        </div>
+
+        <!-- Feed (masonry via CSS columns) -->
+        <div id="wallFeed" class="wall-feed" aria-label="Wall posts" aria-live="polite"></div>
+
+        <button class="wall-load-more" id="wallLoadMore" onclick="loadMoreWall()" style="display:none;">Load
+          more</button>
+
+      </div>
+    </div>
+
+    <!-- ── ZEN HUB ── -->
+    <div id="page-zen" class="page" role="region" aria-label="Zen Hub">
+      <div class="zen-hub-container">
+        <div class="zen-header hub-view">
+          <p class="eyebrow">✦ A moment for you ✦</p>
+          <h2 id="zenTitle">The <em>Zen</em> Hub</h2>
+          <p id="zenSubtitle" class="zen-intro">Choose a gentle way to spend a few moments.</p>
+        </div>
+
+        <!-- Selection Menu -->
+        <div id="zenMenu" class="zen-menu">
+          <button class="zen-card" onclick="startZenGame('petal')">
+            <div class="zen-card-icon">🌸</div>
+            <div class="zen-card-content">
+              <h3>Petal Drift</h3>
+              <p>Interact with soft, floating petals.</p>
+            </div>
+          </button>
+          <button class="zen-card" onclick="startZenGame('breath')">
+            <div class="zen-card-icon">🌬️</div>
+            <div class="zen-card-content">
+              <h3>Breathing Bloom</h3>
+              <p>Follow a gentle rhythm of breath.</p>
+            </div>
+          </button>
+          <button class="zen-card" onclick="startZenGame('light')">
+            <div class="zen-card-icon">🕯️</div>
+            <div class="zen-card-content">
+              <h3>Light Finder</h3>
+              <p>Uncover hidden words with a soft glow.</p>
+            </div>
+          </button>
+          <button class="zen-card" onclick="startZenGame('starlight')">
+            <div class="zen-card-icon">🌌</div>
+            <div class="zen-card-content">
+              <h3>Starlight Whisper</h3>
+              <p>Connect stars and watch them bloom.</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- Individual Game Views (Initially Hidden) -->
+        <div id="zenGameView" class="zen-game-view" style="display: none;">
+          <div id="petalDriftGame" class="zen-sub-page" style="display: none;">
+            <div id="zenCanvas" class="zen-canvas" aria-label="Interactive petal field"></div>
+          </div>
+
+          <div id="lightFinderGame" class="zen-sub-page" style="display: none;">
+            <div id="lightCanvas" class="light-finder-canvas" aria-label="Dark canvas with hidden words">
+              <div id="lightOrb" class="light-orb"></div>
+              <div id="lightWords" class="light-words-container"></div>
+            </div>
+          </div>
+
+          <div id="starlightGame" class="zen-sub-page" style="display: none;">
+            <div id="starlightCanvas" class="starlight-canvas" aria-label="Night sky with stars">
+              <div class="sky-clouds"></div>
+              <div id="starField" class="star-field"></div>
+              <canvas id="starlightLineCanvas"></canvas>
+            </div>
+          </div>
+
+          <div id="breathingGame" class="zen-sub-page" style="display: none;">
+            <div class="breathing-container">
+              <div class="breathing-circle" id="breathCircle"></div>
+              <div class="breathing-label" id="breathLabel">Breathe in...</div>
+            </div>
+          </div>
+
+          <div class="zen-game-footer">
+            <button class="btn-ghost" onclick="showZenMenu()" aria-label="Back to Zen Hub">← Back to Hub</button>
+            <div class="zen-actions">
+              <button class="btn-zen-tool" onclick="captureZenScreenshot()" title="Save Screenshot">📸</button>
+              <button class="btn-zen-tool" onclick="shareZenProgress()" title="Share Progress">🔗</button>
+            </div>
+            <button class="btn-ghost" id="zenResetBtn" onclick="resetCurrentZen()" aria-label="Refresh">↻
+              Refresh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── THE RELEASE ── -->
+    <div id="page-release" class="page" role="region" aria-label="The Release">
+      <div class="release-wrapper">
+
+        <!-- Minimal header -->
+        <div class="release-header">
+          <button class="release-back-btn" onclick="history.back()" aria-label="Go back">←
+            back</button>
+          <p class="release-header-title">The Release</p>
+          <span aria-hidden="true"></span>
+        </div>
+
+        <!-- Diary page -->
+        <div class="release-diary" id="releaseDiary">
+          <!-- Ruled lines drawn by CSS -->
+          <div class="diary-lines" aria-hidden="true"></div>
+
+          <!-- Response message (hidden until release) -->
+          <div class="release-response" id="releaseResponse" aria-live="polite">
+            <p class="release-response-text">Thank you for trusting me with this.</p>
+            <p class="release-response-sub">It has been released. You are lighter now.</p>
+            <button class="release-again-btn" onclick="initReleasePage()" aria-label="Write something else">write
+              something else</button>
+          </div>
+
+          <!-- Particle burst container -->
+          <div class="release-particles" id="releaseParticles" aria-hidden="true"></div>
+
+          <!-- The writing area -->
+          <div class="diary-content" id="diaryContent">
+            <p class="diary-date" id="diaryDate"></p>
+            <!-- Rotating soft prompt (stops once user types) -->
+            <p class="diary-prompt" id="diaryPrompt" aria-hidden="true"></p>
+            <div id="diaryWriting" class="diary-writing" contenteditable="true" spellcheck="false" role="textbox"
+              aria-multiline="true" aria-label="Write your thoughts — no one will ever read this"
+              data-placeholder="Write it all out. No one will ever read this. Let it pour…"></div>
+          </div>
+        </div>
+
+        <!-- Release button -->
+        <div class="release-btn-row" id="releaseBtnRow">
+          <p class="release-hint">When you're ready —</p>
+          <button class="release-btn" id="releaseBtn" onclick="triggerRelease()">
+            <span class="release-btn-text">Release it</span>
+            <span class="release-btn-icon" aria-hidden="true">◌</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  </div><!-- end .page-wrapper -->
+
+  <!-- ── SHARE MODAL ── -->
+  <div class="modal-overlay" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+    <div class="modal">
+      <button class="modal-close" onclick="closeShare()" aria-label="Close share dialog">✕</button>
+      <p class="modal-title" id="shareModalTitle">Share this act</p>
+      <p class="modal-sub">Spread a little kindness 🌿</p>
+
+      <div class="share-preview">
+        <p class="share-preview-eyebrow">✦ Today's Act of Kindness ✦</p>
+        <p class="share-preview-text" id="shareText"></p>
+        <span class="share-preview-tag" id="shareTag"></span>
+        <p class="share-preview-footer">todayskindness.co</p>
+      </div>
+
+      <div class="share-btns">
+        <button class="share-btn" onclick="copyText()">📋 Copy</button>
+        <button class="share-btn" onclick="shareNative()">📤 Share</button>
+        <button class="share-btn" onclick="copyLink()">🔗 Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JOURNAL MODAL ── -->
+  <div class="modal-overlay" id="journalModal" role="dialog" aria-modal="true" aria-labelledby="journalModalTitle">
+    <div class="modal">
+      <button class="modal-close" onclick="closeJournalModal()" aria-label="Close journal modal">✕</button>
+
+      <p class="modal-title" id="journalModalTitle">Reflect for a moment</p>
+      <p class="modal-sub">How did this act feel? (optional)</p>
+
+      <div class="mood-tag-picker">
+        <p class="mood-tag-label" id="moodTagLabel">Tag your feeling</p>
+        <div class="mood-tag-options" id="moodTagOptions" role="group" aria-labelledby="moodTagLabel">
+          <button class="mood-tag-btn" data-mood="Calm" onclick="selectMoodTag(this)" aria-pressed="false">🌿
+            Calm</button>
+          <button class="mood-tag-btn" data-mood="Happy" onclick="selectMoodTag(this)" aria-pressed="false">🌤️
+            Happy</button>
+          <button class="mood-tag-btn" data-mood="Neutral" onclick="selectMoodTag(this)" aria-pressed="false">😌
+            Neutral</button>
+          <button class="mood-tag-btn" data-mood="Loved" onclick="selectMoodTag(this)" aria-pressed="false">💗
+            Loved</button>
+          <button class="mood-tag-btn" data-mood="Relaxed" onclick="selectMoodTag(this)" aria-pressed="false">🧘
+            Relaxed</button>
+          <button class="mood-tag-btn" data-mood="Hopeful" onclick="selectMoodTag(this)" aria-pressed="false">🌱
+            Hopeful</button>
+          <button class="mood-tag-btn" data-mood="Grateful" onclick="selectMoodTag(this)" aria-pressed="false">🫶
+            Grateful</button>
+          <button class="mood-tag-btn" data-mood="Tired" onclick="selectMoodTag(this)" aria-pressed="false">😩
+            Tired</button>
+          <button class="mood-tag-btn" data-mood="Anxious" onclick="selectMoodTag(this)" aria-pressed="false">😟
+            Anxious</button>
+          <button class="mood-tag-btn" data-mood="Frustrated" onclick="selectMoodTag(this)" aria-pressed="false">😤
+            Frustrated</button>
+          <button class="mood-tag-btn" data-mood="Sad" onclick="selectMoodTag(this)" aria-pressed="false">😔
+            Sad</button>
+          <button class="mood-tag-btn" data-mood="Lonely" onclick="selectMoodTag(this)" aria-pressed="false">🤍
+            Lonely</button>
+        </div>
+      </div>
+
+      <label for="journalInput" class="sr-only">Write your reflection</label>
+      <textarea id="journalInput" class="journal-textarea" placeholder="A sentence or two is enough…"
+        rows="4"></textarea>
+
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeJournalModal()">Skip</button>
+        <button class="btn-primary" onclick="saveJournalEntry()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen-reader only utility class -->
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+  </style>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ── THEME PICKER ── -->
+  <div class="theme-picker-panel" id="themePickerPanel" role="dialog" aria-modal="false"
+    aria-label="Choose colour theme">
+    <div class="theme-picker-inner">
+      <p class="theme-picker-title">Choose your vibe</p>
+      <div class="theme-swatches" id="themeSwatches" role="group" aria-label="Colour themes"></div>
+      <div class="theme-picker-divider"></div>
+      <p class="theme-picker-subtitle">Each vibe works in both light &amp; dark mode</p>
+    </div>
+  </div>
+  <div class="theme-picker-backdrop" id="themePickerBackdrop" onclick="closeThemePicker()"></div>
+
+  <!-- Sound panel — moved to body level to escape header stacking context -->
+  <div class="sound-panel" id="soundPanel" role="dialog" aria-label="Ambient sounds">
+    <p class="sound-panel-title">🎧 Ambient Sounds</p>
+    <div class="sound-options">
+      <button class="sound-option-btn" data-sound="piano" onclick="selectSound('piano')" title="Relaxing piano">
+        <span class="sound-option-icon">🎹</span>
+        <span class="sound-option-label">Piano</span>
+      </button>
+      <button class="sound-option-btn" data-sound="chimes" onclick="selectSound('chimes')" title="Crystal tones">
+        <span class="sound-option-icon">🔮</span>
+        <span class="sound-option-label">Crystal</span>
+      </button>
+    </div>
+    <div class="sound-volume-row">
+      <span class="sound-vol-label">Vol</span>
+      <input type="range" min="0" max="100" value="55" class="sound-volume-slider" id="soundVolumeSlider"
+        oninput="setSoundVolume(this.value)" aria-label="Sound volume">
+    </div>
+    <button class="sound-stop-btn" onclick="stopSound()" id="soundStopBtn" style="display:none">■ Stop</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- JS — loaded in dependency order: data → theme → nav → sidebar → generator → moodboard → journal → affirmations → wall → release → main -->
+  <script src="js/data.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/moodboard.js"></script>
+  <script src="js/journal.js"></script>
+  <script src="js/affirmations.js?v=2"></script>
+  <script src="js/wall.js?v=2"></script>
+  <script src="js/zen.js?v=2"></script>
+  <script src="js/release.js"></script>
+  <script src="js/sound.js?v=2"></script>
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

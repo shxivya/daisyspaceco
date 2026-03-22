@@ -1,0 +1,198 @@
+/* ── BASE: Reset, Variables, Body, Blobs, Animations, Dark Mode ── */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cream: #f4efe5;
+    --warm: #e8e2d4;
+    --beige: #ddd7c6;
+    --sage: #7a9e7e;
+    --sage-light: #a8c4a2;
+    --sage-pale: #d4e4d0;
+    --sage-dark: #587a5c;
+    --deep: #3d3228;
+    --mid: #6b5c4e;
+    --muted: #9e9082;
+    --soft: #ede8de;
+    --white: #fdfaf5;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--deep);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    position: relative;
+}
+
+.page-wrapper {
+    overflow-x: hidden;
+}
+
+/* Subtle noise texture overlay */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 160px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Gradient blobs */
+.blob1 {
+    position: fixed;
+    top: -140px;
+    right: -140px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #bdd4b9 0%, transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blob2 {
+    position: fixed;
+    bottom: -120px;
+    left: -100px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ddd8cc 0%, transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blob3 {
+    position: fixed;
+    top: 50%;
+    left: -180px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c8d4b8 0%, transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+    --cream: #121715;
+    --white: #1a211e;
+    --soft: #222b27;
+    --deep: #f4efe5;
+    --mid: #cfc7bb;
+    --muted: #9f988c;
+    --warm: #1f2723;
+    --beige: #2a332e;
+    --sage: #9fc3a2;
+    --sage-light: #b7d6bb;
+    --sage-pale: #2f3f36;
+    --sage-dark: #cfe6d4;
+}
+
+[data-theme="dark"] .blob1,
+[data-theme="dark"] .blob2,
+[data-theme="dark"] .blob3 {
+    opacity: 0.35;
+    filter: blur(12px);
+    mix-blend-mode: screen;
+}
+
+/* ── PAGE TRANSITIONS ── */
+.page {
+    display: none;
+    opacity: 1;
+}
+
+.page.active {
+    display: block;
+    opacity: 1;
+}
+
+.page-exit {
+    display: block !important;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.page-enter {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page.active:not(.page-enter) {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1)
+    }
+
+    40% {
+        transform: scale(1.06)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+.popping {
+    animation: pop 0.4s ease;
+}
+
+/* ── UNIVERSAL FOCUS VISIBLE ── */
+:focus-visible {
+    outline: 2px solid var(--sage);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ── RESPONSIVE BASE ── */
+@media(max-width:480px) {
+    .share-btns {
+        flex-direction: column;
+    }
+
+    .streak-box {
+        gap: 1.1rem;
+        padding: 0.8rem 1.2rem;
+    }
+
+    .card {
+        padding: 2.8rem 1.8rem 2.5rem;
+    }
+
+    .mood-affirmations {
+        grid-template-columns: 1fr;
+    }
+}

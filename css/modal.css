@@ -1,0 +1,198 @@
+/* ── MODALS: Share modal, Journal modal, Toast ── */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(61, 50, 40, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    will-change: opacity, visibility;
+}
+
+.modal-overlay.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important;
+}
+
+.modal {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 2.4rem 2.2rem 2rem;
+    max-width: 440px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.14);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.open .modal {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.4rem;
+    background: var(--warm);
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    padding: 0;
+}
+
+.modal-close:hover {
+    background: var(--beige);
+}
+
+.modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+    text-align: center;
+}
+
+.modal-sub {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+.modal-actions {
+    display: inline-flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+}
+
+/* Share preview */
+.share-preview {
+    border-radius: 16px;
+    padding: 2rem 1.8rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--cream);
+}
+
+.share-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sage-pale), var(--sage), var(--sage-light));
+}
+
+.share-preview-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.8rem;
+}
+
+.share-preview-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--deep);
+    font-style: italic;
+    margin-bottom: 0.8rem;
+}
+
+.share-preview-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--sage-pale);
+    color: var(--sage-dark);
+    padding: 0.22rem 0.7rem;
+    border-radius: 100px;
+}
+
+.share-preview-footer {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1.2rem;
+}
+
+.share-btns {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.share-btn {
+    flex: 1;
+    background: var(--warm);
+    border: 1.5px solid var(--beige);
+    color: var(--deep);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 0.6rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.share-btn:hover {
+    background: var(--sage-pale);
+    border-color: var(--sage-light);
+    color: var(--sage-dark);
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--deep);
+    color: var(--cream);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    padding: 0.7rem 1.6rem;
+    border-radius: 100px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 200;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}

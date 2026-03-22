@@ -1,0 +1,128 @@
+/* ── THEME PICKER: Panel, Swatches, Backdrop ── */
+
+.palette-toggle-btn {
+    position: relative;
+}
+
+.theme-picker-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+}
+
+.theme-picker-backdrop.open {
+    display: block;
+}
+
+.theme-picker-panel {
+    position: fixed;
+    top: 4.5rem;
+    right: 1.5rem;
+    width: 240px;
+    background: var(--white);
+    border: 1.5px solid var(--beige);
+    border-radius: 20px;
+    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.theme-picker-panel.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.theme-picker-inner {
+    padding: 1.2rem 1.1rem 1rem;
+}
+
+.theme-picker-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.theme-picker-subtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    opacity: 0.7;
+}
+
+.theme-picker-divider {
+    height: 1px;
+    background: var(--beige);
+    margin: 0.8rem 0;
+}
+
+.theme-swatches {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.theme-swatch-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    padding: 0.55rem 0.8rem;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    background: none;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    text-align: left;
+}
+
+.theme-swatch-btn:hover {
+    background: var(--soft);
+}
+
+.theme-swatch-btn.active {
+    background: var(--soft);
+    border-color: var(--beige);
+}
+
+.theme-swatch-btn.active .theme-swatch-name {
+    color: var(--deep);
+    font-weight: 700;
+}
+
+.theme-swatch-btn.picked {
+    transform: scale(0.97);
+}
+
+.theme-swatch-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.theme-swatch-dot.secondary {
+    width: 12px;
+    height: 12px;
+    margin-left: -10px;
+    border: 2px solid var(--white);
+}
+
+.theme-swatch-name {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    color: var(--mid);
+    letter-spacing: 0.02em;
+    flex: 1;
+    transition: color 0.15s;
+}

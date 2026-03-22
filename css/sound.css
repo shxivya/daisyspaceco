@@ -1,0 +1,166 @@
+/* ── AMBIENT SOUND TOGGLE ── */
+
+.sound-toggle-wrap {
+    position: relative;
+}
+
+/* Sound panel dropdown */
+.sound-panel {
+    position: fixed;
+    top: 4.5rem;
+    right: 4.5rem;
+    width: 200px;
+    background: var(--white);
+    border-radius: 18px;
+    border: 1.5px solid var(--beige);
+    box-shadow: 0 12px 40px rgba(58, 35, 24, 0.12), 0 2px 8px rgba(58, 35, 24, 0.06);
+    padding: 1.1rem 1rem 1rem;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sound-panel.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.sound-panel-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.85rem;
+    text-align: center;
+}
+
+/* Sound option buttons */
+.sound-options {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+}
+
+.sound-option-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    background: var(--soft);
+    border: 1.5px solid var(--beige);
+    border-radius: 14px;
+    padding: 0.55rem 0.5rem 0.45rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    min-width: 0;
+}
+
+.sound-option-btn:hover {
+    border-color: var(--sage-light);
+    background: var(--sage-pale);
+    transform: translateY(-1px);
+}
+
+.sound-option-btn.active {
+    background: var(--sage-pale);
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(168, 196, 162, 0.25);
+}
+
+.sound-option-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.sound-option-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.sound-option-btn.active .sound-option-label {
+    color: var(--sage-dark);
+}
+
+/* Volume row */
+.sound-volume-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+}
+
+.sound-vol-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-shrink: 0;
+}
+
+.sound-volume-slider {
+    flex: 1;
+    accent-color: var(--sage);
+    height: 4px;
+    cursor: pointer;
+}
+
+/* Stop button */
+.sound-stop-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 1.5px solid var(--beige);
+    border-radius: 100px;
+    color: var(--muted);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sound-stop-btn:hover {
+    border-color: #c47a8a;
+    color: #c47a8a;
+}
+
+/* Icon pill glow when sound is playing */
+#soundToggleBtn.sound-on {
+    background: var(--sage-pale);
+    border-color: var(--sage-light);
+    color: var(--sage-dark);
+}
+
+#soundToggleBtn.sound-on #soundBtnIcon {
+    animation: soundPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes soundPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.65;
+        transform: scale(1.15);
+    }
+}
+
+/* Dark mode */
+[data-theme="dark"] .sound-panel {
+    background: var(--white);
+    border-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,121 @@
+/* ── AMBIENT BACKGROUND: Subtle Organic Drift ── */
+
+/*
+  Layer sits at z-index: -1 so it's behind page content (z-index: 1+)
+  but above the body background. No mix-blend-mode — plain opacity only
+  to avoid the "multiply on dark background = invisible" problem.
+*/
+
+.ambient-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+.ambient-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    will-change: transform;
+}
+
+/* ── BLOB 1: TOP-LEFT — soft sage green ── */
+.ambient-blob-1 {
+    width: 75vw;
+    height: 75vw;
+    background: radial-gradient(circle at center, rgba(180, 210, 175, 0.45) 0%, transparent 70%);
+    top: -15%;
+    left: -15%;
+    animation: ambientDrift1 45s ease-in-out infinite alternate;
+}
+
+/* ── BLOB 2: BOTTOM-RIGHT — warm ivory ── */
+.ambient-blob-2 {
+    width: 65vw;
+    height: 65vw;
+    background: radial-gradient(circle at center, rgba(220, 210, 195, 0.4) 0%, transparent 70%);
+    bottom: -10%;
+    right: -10%;
+    animation: ambientDrift2 55s ease-in-out infinite alternate;
+}
+
+/* ── BLOB 3: CENTER-MID — very faint sage-lilac ── */
+.ambient-blob-3 {
+    width: 55vw;
+    height: 55vw;
+    background: radial-gradient(circle at center, rgba(190, 200, 185, 0.3) 0%, transparent 70%);
+    top: 35%;
+    left: 35%;
+    animation: ambientDrift3 65s ease-in-out infinite alternate;
+}
+
+/* ── SLOW POSITION DRIFT — no scale, no rotation ── */
+@keyframes ambientDrift1 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(5vw, 8vh);
+    }
+
+    66% {
+        transform: translate(-3vw, 5vh);
+    }
+
+    100% {
+        transform: translate(7vw, 2vh);
+    }
+}
+
+@keyframes ambientDrift2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(-6vw, -4vh);
+    }
+
+    66% {
+        transform: translate(4vw, -9vh);
+    }
+
+    100% {
+        transform: translate(-2vw, 6vh);
+    }
+}
+
+@keyframes ambientDrift3 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    33% {
+        transform: translate(8vw, -5vh);
+    }
+
+    66% {
+        transform: translate(-5vw, 7vh);
+    }
+
+    100% {
+        transform: translate(3vw, -3vh);
+    }
+}
+
+/* ── DARK MODE: lower opacity, screen blend to feel like light ── */
+[data-theme="dark"] .ambient-blob-1 {
+    background: radial-gradient(circle at center, rgba(100, 140, 110, 0.18) 0%, transparent 70%);
+}
+
+[data-theme="dark"] .ambient-blob-2 {
+    background: radial-gradient(circle at center, rgba(80, 110, 95, 0.14) 0%, transparent 70%);
+}
+
+[data-theme="dark"] .ambient-blob-3 {
+    background: radial-gradient(circle at center, rgba(90, 130, 100, 0.1) 0%, transparent 70%);
+}

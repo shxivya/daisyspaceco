@@ -1,0 +1,517 @@
+/* ── HOME / LANDING PAGE v3 ── */
+
+/* ────────────────────────────────────────────────────────────
+   CRITICAL: top-bar must float ABOVE the page-home overlay.
+   page-home = z-index 400; top-bar = z-index 600 (see header.css)
+   ──────────────────────────────────────────────────────────── */
+
+/* On home page: hide nav buttons, only keep logo + utility icons */
+body.on-home-page .nav {
+    display: none !important;
+}
+
+/* Without the nav the grid auto-places auth buttons into the center column.
+   Override to flex so logo stays far-left and buttons anchor to the right. */
+body.on-home-page .top-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* On home page: give top-bar a glass/transparent look */
+body.on-home-page .top-bar {
+    background: rgba(255, 255, 255, 0.28) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.55) !important;
+    box-shadow: 0 1px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="dark"] body.on-home-page .top-bar,
+body.on-home-page [data-theme="dark"] .top-bar {
+    background: rgba(0, 0, 0, 0.25) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── PAGE FILLS VIEWPORT — sits BELOW the top-bar ── */
+.page-home {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden;
+    z-index: 400;
+    pointer-events: none;
+    /* Theme-aware gradient using existing CSS variables */
+    background: linear-gradient(140deg,
+            var(--white) 0%,
+            var(--soft) 40%,
+            var(--sage-pale) 70%,
+            var(--white) 100%) !important;
+    transition: background 0.4s ease;
+}
+
+.page-home.active,
+.page-home.page-exit {
+    display: flex !important;
+    pointer-events: auto;
+}
+
+/* Background blobs using theme vars */
+.page-home::before,
+.page-home::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.page-home::before {
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, var(--sage-pale) 0%, transparent 70%);
+    top: -140px;
+    left: -110px;
+    opacity: 0.8;
+    animation: homeBlob 18s ease-in-out infinite alternate;
+}
+
+.page-home::after {
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, var(--sage-light) 0%, transparent 70%);
+    bottom: -100px;
+    right: -90px;
+    opacity: 0.4;
+    animation: homeBlob 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes homeBlob {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(18px, 24px) scale(1.08);
+    }
+}
+
+/* Particles */
+.home-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.home-particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: homeParticleDrift linear infinite;
+}
+
+@keyframes homeParticleDrift {
+    0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    92% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(-30px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Hide the redundant home nav pill (top-bar nav is always shown) */
+.home-nav {
+    display: none !important;
+}
+
+/* ── HERO — centered with room for top-bar ── */
+.home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    padding-top: 64px;
+    /* clears the top-bar */
+    animation: homeFadeUp 0.9s ease forwards;
+    opacity: 0;
+}
+
+@keyframes homeFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.home-title {
+    font-family: 'Playfair Display', serif !important;
+    font-size: clamp(42px, 6vw, 82px) !important;
+    font-weight: 400 !important;
+    line-height: 1.08 !important;
+    color: var(--deep) !important;
+    letter-spacing: -0.01em !important;
+    margin: 0 !important;
+    text-align: center;
+}
+
+.home-title em {
+    font-style: italic;
+    color: var(--sage) !important;
+    font-weight: 400;
+}
+
+.home-deco-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, transparent, var(--sage-light), transparent);
+    margin: 22px auto 0;
+    opacity: 0.7;
+}
+
+.home-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-top: 18px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+}
+
+/* CTAs */
+.home-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 36px;
+}
+
+.home-btn-primary {
+    background: var(--deep);
+    color: var(--cream);
+    border: none;
+    padding: 13px 36px;
+    border-radius: 100px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.home-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.home-btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--sage-light);
+    padding: 12px 26px;
+    border-radius: 100px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.home-btn-secondary:hover {
+    border-color: var(--sage);
+    color: var(--deep);
+    background: var(--sage-pale);
+    transform: translateY(-2px);
+}
+
+/* Tagline */
+.home-tagline-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.home-tagline-item {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.8;
+}
+
+.home-tagline-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--sage-light);
+    flex-shrink: 0;
+    opacity: 0.6;
+}
+
+/* Corner stats */
+.home-stat {
+    position: absolute;
+    bottom: 40px;
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 5;
+    animation: homeFadeUp 1s ease forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.home-stat-left {
+    left: 42px;
+    text-align: left;
+}
+
+.home-stat-right {
+    right: 42px;
+    text-align: right;
+}
+
+.home-stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--deep);
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+/* Enter hint */
+.home-enter {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 5;
+    animation: homeFadeUp 1s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.home-enter-line {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(to bottom, var(--sage), transparent);
+    animation: homeLinePulse 2.5s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.home-enter-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+@keyframes homeLinePulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+}
+
+/* Exit animation */
+.page-home.home-exiting {
+    animation: homeExit 0.5s ease forwards !important;
+}
+
+@keyframes homeExit {
+    to {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+}
+
+/* ── BRAND LOGO (daisyspaceco) in top-left ── */
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.05s forwards;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.brand-logo:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+/* SVG daisy uses CSS vars for theme colors */
+.brand-daisy {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    animation: daisySpin 28s linear infinite;
+}
+
+@keyframes daisySpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.brand-daisy .petal {
+    fill: var(--sage-light);
+    transition: fill 0.4s ease;
+}
+
+.brand-daisy .petal-inner {
+    fill: var(--sage-pale);
+    transition: fill 0.4s ease;
+}
+
+.brand-daisy .center {
+    fill: var(--sage-dark);
+    transition: fill 0.4s ease;
+}
+
+.brand-daisy .center-dot {
+    fill: var(--cream);
+    transition: fill 0.4s ease;
+}
+
+.brand-wordmark {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--deep);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.brand-wordmark strong {
+    font-weight: 400;
+    color: var(--deep);
+}
+
+.brand-wordmark .brand-co {
+    font-size: 11px;
+    color: var(--sage);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+}
+
+/* Rotating lines beneath */
+.rotating-lines {
+    height: 28px;
+    overflow: hidden;
+    margin-top: 18px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.1s;
+}
+
+.line-track {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    animation: slideLines 9s ease-in-out infinite;
+}
+
+.line-track span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+@keyframes slideLines {
+
+    0%,
+    22% {
+        transform: translateY(0);
+    }
+
+    28%,
+    55% {
+        transform: translateY(calc(-28px - 28px));
+    }
+
+    61%,
+    88% {
+        transform: translateY(calc(-2 * (28px + 28px)));
+    }
+
+    94%,
+    100% {
+        transform: translateY(0);
+    }
+}

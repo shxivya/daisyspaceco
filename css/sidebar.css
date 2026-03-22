@@ -1,0 +1,203 @@
+/* ── SIDEBAR: Panel, Tab, Backdrop, Sections, Nav links ── */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    z-index: 45;
+    transform: translateX(-100%);
+    transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(244, 239, 229, 0.78);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-right: 1px solid rgba(221, 215, 198, 0.6);
+    box-shadow: 4px 0 40px rgba(58, 35, 24, 0.08);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+[data-theme="dark"] .sidebar {
+    background: rgba(18, 23, 21, 0.82);
+    border-right: 1px solid rgba(42, 51, 46, 0.5);
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-inner {
+    padding: 5rem 1.6rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.sidebar-section {
+    padding: 1.2rem 0;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: var(--beige);
+    opacity: 0.6;
+}
+
+.sidebar-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.7rem;
+}
+
+.sidebar-affirmation {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--deep);
+    line-height: 1.65;
+}
+
+.sidebar-streak {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+}
+
+.sidebar-streak-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--sage-dark);
+    line-height: 1;
+}
+
+.sidebar-streak-unit {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.sidebar-quote {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.7;
+    font-style: italic;
+}
+
+.sidebar-nav-shortcuts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.sidebar-nav-link {
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+    width: 100%;
+}
+
+.sidebar-nav-link:hover {
+    color: var(--deep);
+    background: var(--soft);
+    padding-left: 1rem;
+}
+
+.sidebar-nav-link.release-link {
+    color: var(--sage);
+    margin-top: 0.6rem;
+    border-top: 1px solid var(--beige);
+    padding-top: 0.9rem;
+}
+
+.sidebar-nav-link.release-link:hover {
+    color: var(--sage-dark);
+    background: var(--sage-pale);
+}
+
+/* Toggle tab */
+.sidebar-tab {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 46;
+    width: 22px;
+    height: 56px;
+    background: rgba(244, 239, 229, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(221, 215, 198, 0.7);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.25s ease, background 0.2s, left 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 2px 0 12px rgba(58, 35, 24, 0.07);
+    padding: 0;
+}
+
+[data-theme="dark"] .sidebar-tab {
+    background: rgba(18, 23, 21, 0.76);
+    border-color: rgba(42, 51, 46, 0.6);
+}
+
+.sidebar-tab:hover {
+    width: 28px;
+    background: var(--sage-pale);
+}
+
+.sidebar.open~.sidebar-tab {
+    left: 260px;
+}
+
+.sidebar-tab-icon {
+    font-size: 0.85rem;
+    color: var(--sage);
+    line-height: 1;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.sidebar.open~.sidebar-tab .sidebar-tab-icon {
+    transform: scaleX(-1);
+}
+
+/* Backdrop */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 44;
+    background: rgba(61, 50, 40, 0.18);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.sidebar-backdrop.open {
+    display: block;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--beige);
+    border-radius: 3px;
+}
