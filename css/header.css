@@ -366,30 +366,25 @@
 }
 
 /* ========================= */
-/* MOBILE HEADER FIX */
+/* CLEAN MOBILE HEADER */
 /* ========================= */
 
 @media (max-width: 768px) {
 
+  .header,
   .nav,
-  .nav-bar,
-  .header-nav {
+  .nav-bar {
     display: flex;
-    overflow-x: auto; /* allow horizontal scroll */
-    gap: 0.8rem;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap; /* allow wrapping */
+    justify-content: center;
+    gap: 0.5rem;
   }
 
-  /* Hide ugly scrollbar */
-  .nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Prevent shrinking */
-  .nav a,
-  .nav-item {
-    flex-shrink: 0;
+  /* Logo stays on top */
+  .logo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
   }
 
 }
