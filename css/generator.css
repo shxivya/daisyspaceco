@@ -515,3 +515,26 @@ h2 em {
     color: var(--muted);
     font-style: italic;
 }
+
+/* ========================= */
+/* MOBILE FIX FOR FILTER PILLS */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .category-filter-bar {
+    display: flex;
+    flex-wrap: wrap; /* allow wrapping */
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    white-space: normal; /* allow text wrap */
+    flex-shrink: 1;
+    width: auto;
+    max-width: 140px;
+    text-align: center;
+  }
+
+}
