@@ -2,7 +2,7 @@
 
 // ── SUPABASE SETUP ──
 const SUPABASE_URL = 'https://rdukqrdsazfkbbduyuec.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_wfl0pZzt54cYuu7bNZ0TGg_GFcUrv9M'; // ⚠️ replace the ... with the rest of your key!
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWtxcmRzYXpma2JiZHV5dWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNDYyNTAsImV4cCI6MjA4OTcyMjI1MH0.4ROXgKrmtuxSX3GB9ymlw0fknXmqXJeVnZJSoP4217o';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Accent colours rotate across cards for personality
