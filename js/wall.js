@@ -2,7 +2,7 @@
 
 // ── SUPABASE SETUP ──
 const SUPABASE_URL = 'https://rdukqrdsazfkbbduyuec.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_wfl0pZzt54cYuu7bNZ0TGg_GFcUr...'; // ⚠️ replace the ... with the rest of your key!
+const SUPABASE_ANON_KEY = 'sb_publishable_wfl0pZzt54cYuu7bNZ0TGg_GFcUrv9M'; // ⚠️ replace the ... with the rest of your key!
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Accent colours rotate across cards for personality
