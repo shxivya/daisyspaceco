@@ -3,15 +3,14 @@
 // ── SUPABASE SETUP ──
 const SUPABASE_URL = 'https://rdukqrdsazfkbbduyuec.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkdWtxcmRzYXpma2JiZHV5dWVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNDYyNTAsImV4cCI6MjA4OTcyMjI1MH0.4ROXgKrmtuxSX3GB9ymlw0fknXmqXJeVnZJSoP4217o';
-let supabaseClient;
+let _supabaseClient;
 function getSupabase() {
-    if (!supabaseClient) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    if (!_supabaseClient) {
+        _supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     }
-    return supabaseClient;
+    return _supabaseClient;
 }
 
-// Accent colours rotate across cards for personality
 const WALL_ACCENTS = [
     { color: '#a8c4a2', tint: 'rgba(168,196,162,0.07)' },
     { color: '#f4d1b5', tint: 'rgba(244,209,181,0.09)' },
@@ -25,9 +24,8 @@ const WALL_ACCENTS = [
 
 const WALL_ROTATIONS = [-0.7, 0.4, -0.3, 0.6, -0.5, 0.3, -0.6, 0.5];
 
-// ── WALL STORAGE HELPERS (Supabase) ──
 async function wallDB_getAll() {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
         .from('kind_wall_posts')
         .select('*')
         .order('time', { ascending: false });
@@ -38,21 +36,20 @@ async function wallDB_getAll() {
 }
 
 async function wallDB_set(post) {
-    const { error } = await supabase
+    const { error } = await getSupabase()
         .from('kind_wall_posts')
         .upsert(post, { onConflict: 'id' });
     if (error) console.error('wallDB_set error:', error);
 }
 
 async function wallDB_delete(postId) {
-    const { error } = await supabase
+    const { error } = await getSupabase()
         .from('kind_wall_posts')
         .delete()
         .eq('id', postId);
     if (error) console.error('wallDB_delete error:', error);
 }
 
-// ── PROMPT SHUFFLE ──
 function shufflePrompt() {
     currentPromptIndex = (currentPromptIndex + 1) % wallPrompts.length;
     const el = document.getElementById('wallPromptLabel');
@@ -63,7 +60,6 @@ function shufflePrompt() {
     }, 180);
 }
 
-// ── CHAR COUNT ──
 function updateWallCharCount() {
     const input = document.getElementById('wallInput');
     const count = document.getElementById('wallCharCount');
@@ -72,7 +68,6 @@ function updateWallCharCount() {
     count.style.color = remaining < 30 ? '#c47a8a' : 'var(--muted)';
 }
 
-// ── POST ──
 async function postToWall() {
     const input = document.getElementById('wallInput');
     const text = input.value.trim();
@@ -121,16 +116,13 @@ async function postToWall() {
     });
 }
 
-// ── TODAY'S COUNTER ──
 async function updateTodayCounter() {
     const allPosts = Object.values(await wallDB_getAll());
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
     const todayCount = allPosts.filter(p => p.time >= todayStart.getTime()).length;
-
     const el = document.getElementById('wallTodayCount');
     if (!el) return;
-
     if (todayCount === 0) {
         el.textContent = 'Be the first to share something kind today';
     } else if (todayCount === 1) {
@@ -140,31 +132,24 @@ async function updateTodayCounter() {
     }
 }
 
-// ── FEATURED THOUGHT ──
 async function renderFeaturedThought() {
     const wrap = document.getElementById('wallFeaturedWrap');
     if (!wrap) return;
-
     const all = Object.values(await wallDB_getAll());
     if (!all.length) { wrap.style.display = 'none'; return; }
-
     const sorted = [...all].sort((a, b) => {
         const sumA = Object.values(a.reactions).reduce((s, v) => s + v, 0);
         const sumB = Object.values(b.reactions).reduce((s, v) => s + v, 0);
         return sumB - sumA || b.time - a.time;
     });
-
     const featured = sorted[0];
     if (!featured) { wrap.style.display = 'none'; return; }
-
     wrap.style.display = 'block';
     const textEl = document.getElementById('wallFeaturedText');
     const timeEl = document.getElementById('wallFeaturedTime');
     const reactEl = document.getElementById('wallFeaturedReactions');
-
     if (textEl) textEl.textContent = featured.text;
     if (timeEl) timeEl.textContent = getTimeAgo(featured.time);
-
     if (reactEl) {
         reactEl.innerHTML = wallReactions.map(r => {
             const count = featured.reactions[r.emoji] || 0;
@@ -179,12 +164,9 @@ async function renderFeaturedThought() {
     }
 }
 
-// ── LOAD POSTS ──
 async function loadWallPosts(reset = false) {
     if (reset) { wallPage = 0; wallPosts = []; }
-
     let all = Object.values(await wallDB_getAll());
-
     if (wallFilter === 'recent') {
         all.sort((a, b) => b.time - a.time);
     } else {
@@ -194,23 +176,18 @@ async function loadWallPosts(reset = false) {
             return sumB - sumA || b.time - a.time;
         });
     }
-
     wallPosts = all;
     updateTodayCounter();
     renderFeaturedThought();
     renderWallFeed(true);
 }
 
-// ── RENDER FEED ──
 function renderWallFeed(reset = false) {
     const feed = document.getElementById('wallFeed');
     const loadMoreBtn = document.getElementById('wallLoadMore');
-
     if (reset) { feed.innerHTML = ''; wallPage = 0; }
-
     const start = wallPage * WALL_PAGE_SIZE;
     const slice = wallPosts.slice(start, start + WALL_PAGE_SIZE);
-
     if (wallPosts.length === 0) {
         feed.innerHTML = `
       <div class="wall-empty">
@@ -221,35 +198,29 @@ function renderWallFeed(reset = false) {
         loadMoreBtn.style.display = 'none';
         return;
     }
-
     let globalIndex = start;
     slice.forEach((post, i) => {
         const card = buildWallCard(post, i * 60, globalIndex);
         feed.appendChild(card);
         globalIndex++;
     });
-
     wallPage++;
     const hasMore = wallPage * WALL_PAGE_SIZE < wallPosts.length;
     loadMoreBtn.style.display = hasMore ? 'block' : 'none';
 }
 
-// ── BUILD CARD ──
 function buildWallCard(post, delay = 0, index = 0) {
     const card = document.createElement('div');
     card.className = 'wall-card';
     card.dataset.id = post.id;
     card.style.animationDelay = delay + 'ms';
-
     const accent = WALL_ACCENTS[index % WALL_ACCENTS.length];
     const rotation = WALL_ROTATIONS[index % WALL_ROTATIONS.length];
     card.style.setProperty('--wall-card-accent', accent.color);
     card.style.setProperty('--wall-card-tint', accent.tint);
     card.style.transform = `rotate(${rotation}deg)`;
-
     const isMyPost = myPostIds.includes(post.id);
     const timeAgo = getTimeAgo(post.time);
-
     const reactionsHtml = wallReactions.map(r => {
         const count = post.reactions[r.emoji] || 0;
         const reacted = myReactions[post.id] === r.emoji;
@@ -262,9 +233,7 @@ function buildWallCard(post, delay = 0, index = 0) {
       ${count > 0 ? `<span class="wr-count">${count}</span>` : ''}
     </button>`;
     }).join('');
-
     const totalReactions = Object.values(post.reactions).reduce((s, v) => s + v, 0);
-
     card.innerHTML = `
     <div class="wall-card-inner">
       ${post.prompt ? `<div class="wall-card-prompt">${post.prompt}</div>` : ''}
@@ -282,38 +251,29 @@ function buildWallCard(post, delay = 0, index = 0) {
     return card;
 }
 
-// ── REACT ──
 async function reactToPost(postId, emoji, withFloat = false) {
     if (withFloat) {
         const btn = document.querySelector(`.wall-card[data-id="${postId}"] .wall-reaction-btn[title="${wallReactions.find(r => r.emoji === emoji)?.label}"]`);
         if (btn) spawnFloatingEmoji(emoji, btn);
     }
-
     const previousReaction = myReactions[postId];
     if (previousReaction === emoji) return;
-
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
         .from('kind_wall_posts')
         .select('*')
         .eq('id', postId)
         .single();
     if (error || !data) return;
-
     const post = data;
-
     if (previousReaction) {
         post.reactions[previousReaction] = Math.max(0, (post.reactions[previousReaction] || 0) - 1);
     }
     post.reactions[emoji] = (post.reactions[emoji] || 0) + 1;
-
     await wallDB_set(post);
-
     myReactions[postId] = emoji;
     localStorage.setItem('wall_my_reactions', JSON.stringify(myReactions));
-
     const idx = wallPosts.findIndex(p => p.id === postId);
     if (idx !== -1) wallPosts[idx] = post;
-
     const globalIndex = Array.from(document.querySelectorAll('.wall-card')).findIndex(c => c.dataset.id === postId);
     const oldCard = document.querySelector(`.wall-card[data-id="${postId}"]`);
     if (oldCard) {
@@ -321,19 +281,15 @@ async function reactToPost(postId, emoji, withFloat = false) {
         newCard.classList.add('wall-card-pulse');
         oldCard.replaceWith(newCard);
     }
-
     renderFeaturedThought();
     showToast(emoji + ' ' + wallReactions.find(r => r.emoji === emoji).label);
 }
 
-// ── SPARKLE + EMOJI PARTICLE BURST ──
 function spawnFloatingEmoji(emoji, anchorEl) {
     const rect = anchorEl.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-
     const SPARKLE_COLORS = ['#a8c4a2', '#f4d1b5', '#d6cfea', '#f2c6cf', '#f6e7a5', '#cfe7d6'];
-
     for (let i = 0; i < 3; i++) {
         const el = document.createElement('div');
         el.className = 'reaction-particle';
@@ -352,7 +308,6 @@ function spawnFloatingEmoji(emoji, anchorEl) {
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 950);
     }
-
     for (let i = 0; i < 8; i++) {
         const dot = document.createElement('div');
         dot.className = 'reaction-sparkle';
@@ -373,12 +328,10 @@ function spawnFloatingEmoji(emoji, anchorEl) {
     }
 }
 
-// ── LOAD MORE ──
 function loadMoreWall() {
     renderWallFeed(false);
 }
 
-// ── FILTER ──
 function setWallFilter(filter, btn) {
     wallFilter = filter;
     document.querySelectorAll('.wall-tab').forEach(t => {
@@ -390,7 +343,6 @@ function setWallFilter(filter, btn) {
     loadWallPosts(true);
 }
 
-// ── INIT ──
 function initWallPage() {
     currentPromptIndex = Math.floor(Math.random() * wallPrompts.length);
     document.getElementById('wallPromptLabel').textContent = wallPrompts[currentPromptIndex];
@@ -398,7 +350,6 @@ function initWallPage() {
     loadWallPosts(true);
 }
 
-// ── HELPERS ──
 function getTimeAgo(timestamp) {
     const diff = Date.now() - timestamp;
     const mins = Math.floor(diff / 60000);
