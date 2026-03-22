@@ -256,3 +256,39 @@ body::after {
     height: auto;
   }
 }
+
+/* ========================= */
+/* GLOBAL MOBILE FIX */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  /* Force full width layout */
+  body,
+  main,
+  .main,
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Fix sections */
+  section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Fix cards / blocks */
+  div {
+    max-width: 100% !important;
+  }
+
+}
+
+@media (max-width: 768px) {
+  body {
+    display: block !important;
+  }
+}
