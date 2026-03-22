@@ -375,8 +375,6 @@
   .nav,
   .nav-bar {
     display: flex;
-    flex-wrap: wrap; /* allow wrapping */
-    justify-content: center;
     gap: 0.5rem;
   }
 
