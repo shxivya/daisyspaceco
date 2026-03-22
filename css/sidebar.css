@@ -201,3 +201,9 @@
     background: var(--beige);
     border-radius: 3px;
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
